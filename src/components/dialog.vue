@@ -9,7 +9,7 @@
         @change="onChangeFile"
       />
     </div>
-    <div>
+    <div v-if="url">
       <img
         :src="this.url"
         alt="no-image"
