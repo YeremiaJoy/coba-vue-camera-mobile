@@ -41,7 +41,7 @@ export default Vue.extend({
 
       try {
         const formData = new FormData();
-        formData.append("image", file);
+        formData.append("file", file);
 
         const fileUrl = await axios.post(
           `https://devjasain-service.herokuapp.com/api/users/upload-image`,
