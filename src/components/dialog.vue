@@ -41,11 +41,10 @@ export default Vue.extend({
 
       try {
         const formData = new FormData();
-        formData.append("file", file);
-        formData.append("module", "PreFerformance");
+        formData.append("image", file);
 
         const fileUrl = await axios.post(
-          `https://dev.werkules.systeric.com/api/uploads`,
+          `https://devjasain-service.herokuapp.com/api/users/upload-image`,
           formData,
           {
             headers: {
@@ -54,7 +53,7 @@ export default Vue.extend({
           }
         );
         // this.url = fileUrl.data.url;
-        this.url = fileUrl.data;
+        this.url = fileUrl.data.url;
       } catch (e) {
         console.log(e);
       }
