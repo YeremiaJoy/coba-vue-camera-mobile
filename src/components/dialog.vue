@@ -26,7 +26,7 @@
 
 <script lang="ts">
 import Vue from "vue";
-// import axios from "axios";
+import axios from "axios";
 
 export default Vue.extend({
   name: "upload-image-dialog",
@@ -39,27 +39,25 @@ export default Vue.extend({
     async onChangeFile(e) {
       // @ts-ignore: Object is possibly 'null'.
       const file = e.target.files[0];
-      this.files = `${file.name}, ${file.type}, ${file.webkitRelativePath}, ${file.size}`
-      console.log(file)
-      this.url = URL.createObjectURL(file);
-
-      // try {
-      //   const formData = new FormData();
-      //   formData.append("file", file);
-      //   formData.append("module", "prePerformanceCheck");
-      //   const fileUrl = await axios.post(
-      //     `https://dev.werkules.systeric.com/api/uploads`,
-      //     formData,
-      //     {
-      //       headers: {
-      //         "Content-Type": "multipart/form-data",
-      //       },
-      //     }
-      //   );
-      //   this.url = fileUrl.data;
-      // } catch (e) {
-      //   console.log(e);
-      // }
+      this.files = `${file.name}, ${file.type}, ${file.webkitRelativePath}, ${file.size}`;
+      console.log(file);
+      try {
+        const formData = new FormData();
+        formData.append("file", file);
+        formData.append("module", "prePerformanceCheck");
+        const fileUrl = await axios.post(
+          `https://dev.werkules.systeric.com/api/uploads`,
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
+        this.url = fileUrl.data;
+      } catch (e) {
+        console.log(e);
+      }
     },
   },
 });
