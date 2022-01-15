@@ -33,20 +33,18 @@ export default Vue.extend({
   data: () => ({
     id: "upload-popup",
     url: "",
-    files: "",
   }),
   methods: {
     async onChangeFile(e) {
       // @ts-ignore: Object is possibly 'null'.
       const file = e.target.files[0];
-      this.files = `${file.name}, ${file.type}, ${file.webkitRelativePath}, ${file.size}`;
-      console.log(file);
+
       try {
         const formData = new FormData();
-        formData.append("file", file);
-        formData.append("module", "prePerformanceCheck");
+        formData.append("image", file);
+
         const fileUrl = await axios.post(
-          `https://dev.werkules.systeric.com/api/uploads`,
+          `https://devjasain-service.herokuapp.com/api/users/upload-image`,
           formData,
           {
             headers: {
@@ -54,7 +52,7 @@ export default Vue.extend({
             },
           }
         );
-        this.url = fileUrl.data;
+        this.url = fileUrl.data.url;
       } catch (e) {
         console.log(e);
       }
