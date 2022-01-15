@@ -16,7 +16,7 @@
       <img
         :src="this.url"
         alt="no-image"
-        style="margin-top: 20px"
+        style="margin-top: 20px; object-fit: contain"
         width="250"
         height="250"
       />
@@ -42,9 +42,10 @@ export default Vue.extend({
       try {
         const formData = new FormData();
         formData.append("file", file);
+        formData.append("module", "PreFerformance");
 
         const fileUrl = await axios.post(
-          `https://devjasain-service.herokuapp.com/api/users/upload-image`,
+          `https://dev.werkules.systeric.com/api/uploads`,
           formData,
           {
             headers: {
@@ -52,7 +53,8 @@ export default Vue.extend({
             },
           }
         );
-        this.url = fileUrl.data.url;
+        // this.url = fileUrl.data.url;
+        this.url = fileUrl.data;
       } catch (e) {
         console.log(e);
       }
