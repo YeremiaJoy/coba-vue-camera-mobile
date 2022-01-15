@@ -9,6 +9,9 @@
         @change="onChangeFile"
       />
     </div>
+    <div>
+      {{ this.files }}
+    </div>
     <div v-if="url">
       <img
         :src="this.url"
@@ -30,13 +33,16 @@ export default Vue.extend({
   data: () => ({
     id: "upload-popup",
     url: "",
+    files: "",
   }),
   methods: {
     async onChangeFile(e) {
       // @ts-ignore: Object is possibly 'null'.
       const file = e.target.files[0];
+      this.files = `${file.name}, ${file.type}, ${file.webkitRelativePath}, ${file.size}`
+      console.log(file)
       this.url = URL.createObjectURL(file);
-      this.$emit("change", file);
+
       // try {
       //   const formData = new FormData();
       //   formData.append("file", file);
